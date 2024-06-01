@@ -158,7 +158,7 @@ sidebar_div.innerHTML = `
                         </li>
                         <li>
                             <a
-                                href="#"
+                                href="logout.php"
                                 class="text-white d-inline-flex text-decoration-none rounded"
                             >Sign out</a
                             >
