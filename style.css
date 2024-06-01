@@ -1,13 +1,30 @@
 .left-bar {
     left: 0;
-    position: fixed;
+    position: absolute;
     min-width: 18rem;
     border-right: 1px solid;
-    height: 100dvh;
+    height: 100vh;
+    background: #424242;
+    color: white;
 }
 
-.right-bar {
+.content {
     margin-left: 18rem;
     padding: 20px;
-    position: absolute;
+    /* position: absolute; */
+    background: #424242;
+    color: white;
+    /* min-width: 75vw; */
+    min-height: 100vh;
+}
+
+.logo {
+    width: 25px !important;
+    height: 25px !important;
+    margin: 10px;
+    margin-right: 15px;
+}
+
+#home-collapse, #dashboard-collapse, #orders-collapse, #account-collapse {
+    margin-left: 20px;
 }
