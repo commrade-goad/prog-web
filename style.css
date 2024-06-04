@@ -55,6 +55,15 @@ body {
     margin: 25px;
     font-size: 16px;
     font-weight: bold;
+    background: rgba(0,0,0,0.1);
+    border-radius: 12px;
+    max-width: 500px;
+}
+
+.login-content a {
+    text-decoration: underline;
+    font-weight: normal;
+    color: white;
 }
 
 .login-content input {
@@ -66,6 +75,7 @@ body {
     color: white;
     border: none;
     border-radius: 6px;
+    min-width: 200px;
 }
 
 #login {
@@ -74,4 +84,22 @@ body {
     background: #b9ffb5;
     color: #424242;
     font-weight: bold;
+}
+
+.center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+#email-error {
+    color: red;
+    font-weight: normal;
+    margin-left: 10px;
+}
+
+.email-div {
+    display: flex;
 }
