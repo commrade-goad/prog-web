@@ -6,10 +6,10 @@ header_div.innerHTML = `
         class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
     >
         <a
-            href="/"
+            href="#"
             class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
         >
-            <img src="assets/logo.png" class="logo">
+            <img src="/assets/logo.png" class="logo">
         </a>
 
         <ul

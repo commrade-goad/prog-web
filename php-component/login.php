@@ -2,7 +2,7 @@
 session_start();
 $nama = array();
 $pass = array();
-$db = new SQLite3('db/database.db');
+$db = new SQLite3('../db/database.db');
 
 
 if (isset($_POST["login"])) {
@@ -15,11 +15,11 @@ if (isset($_POST["login"])) {
     for ($i=0; $i < count($nama); $i++) { 
         if ($_POST["username"] == $nama[$i] && $_POST["password"] == $pass[$i]) {
             $_SESSION["start"] = true;
-            echo "<script>window.location=\"dashboard.php\"</script>";
+            echo "<script>window.location=\"/dashboard/\"</script>";
         }
     }
     echo "<script>alert(\"Username atau password salah!\")</script>";
-    echo "<script>window.location=\"index.php\"</script>";
+    echo "<script>window.location=\"/login/\"</script>";
 }
 elseif (isset($_POST["reg"])) {
     $email = $_POST["email"];
@@ -27,11 +27,17 @@ elseif (isset($_POST["reg"])) {
     $password = $_POST["password"];
     $new_str = "insert into users (email, name, password) values (\"" . $email . "\",\"" . $username . "\",\"" . $password . "\");";
 
-    $db->query($new_str);
-    echo "<script>alert(\"User baru telah teregister.\")</script>";
-    header("Location: index.php");
+    $result = $db->query($new_str);
+    if ($result == false) {
+        die();
+        echo "<script>alert(\"Terjadi kesalahan saat membuat user baru.\");</script>";
+        echo "<script>window.location=\"/register/\"</script>";
+    } else {
+        echo "<script>alert(\"User baru telah teregister.\")</script>";
+        echo "<script>window.location=\"/login/\"</script>";
+    }
 }
 else {
-    header("Location: index.php");
+    header("Location: /login/");
 }
 ?>

@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Register Page</title>
-        <link href="style.css" rel="stylesheet">
+        <link href="/css/style.css" rel="stylesheet">
     </head>
     <body>
         <div class="login-header">
@@ -13,7 +13,7 @@
         <br>
         <br>
         <div class="center">
-            <form method="POST" action="login.php" class="login-content">
+            <form method="POST" action="/php-component/login.php" class="login-content">
                 <div class="email-div">
                     <label for="email"/>Email:</label>
                     <span id="email-error" style="display: none;">invalid email.</span><br/>
@@ -24,9 +24,9 @@
                 <label for="password"/>Password:<br/></label>
                 <input type="password" name="password" required placeholder="password"/><br/><br/>
                 <input type="submit" name="reg" value="Register" id="login">
-                <p><a href="index.php">Go back to Login</a></p>
+                <p><a href="/login">Go back to Login</a></p>
             </form>
-            <script src="js/validate-email.js">
+            <script src="/js/validate-email.js">
             </script>
         </div>
     </body>
