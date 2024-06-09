@@ -8,7 +8,7 @@ function makeTable() {
     $db = connect_db();
     // item
     echo "<h3>ITEM</h3>";
-    echo "<table class='table table-dark'>";
+    echo "<table class='table table-dark table-striped'>";
     echo "<thead>";
     echo "<tr>";
     echo "<th>kodeitem</th>";
@@ -38,7 +38,7 @@ function makeTable() {
     
     // pemasok
     echo "<h3>PEMASOK</h3>";
-    echo "<table class='table table-dark'>";
+    echo "<table class='table table-dark table-striped'>";
     echo "<thead>";
     echo "<tr>";
     echo "<th>kodepemasok</th>";
@@ -68,7 +68,7 @@ function makeTable() {
     
     // pelanggan 
     echo "<h3>PELANGGAN</h3>";
-    echo "<table class='table table-dark'>";
+    echo "<table class='table table-dark table-striped'>";
     echo "<thead>";
     echo "<tr>";
     echo "<th>kodepelanggan</th>";
@@ -98,7 +98,7 @@ function makeTable() {
 
     // rekening
     echo "<h3>Rekening</h3>";
-    echo "<table class='table table-dark'>";
+    echo "<table class='table table-dark table-striped'>";
     echo "<thead>";
     echo "<tr>";
     echo "<th>koderekening</th>";
@@ -122,7 +122,7 @@ function makeTable() {
 
     // hjual
     echo "<h3>HJUAL</h3>";
-    echo "<table class='table table-dark'>";
+    echo "<table class='table table-dark table-striped'>";
     echo "<thead>";
     echo "<tr>";
     echo "<th>nojual</th>";
@@ -150,7 +150,7 @@ function makeTable() {
 
     // djual
     echo "<h3>DJUAL</h3>";
-    echo "<table class='table table-dark'>";
+    echo "<table class='table table-dark table-striped'>";
     echo "<thead>";
     echo "<tr>";
     echo "<th>nogenerate</th>";
@@ -180,7 +180,7 @@ function makeTable() {
 
     // hbeli
     echo "<h3>HBELI</h3>";
-    echo "<table class='table table-dark'>";
+    echo "<table class='table table-dark table-striped'>";
     echo "<thead>";
     echo "<tr>";
     echo "<th>nobeli</th>";
@@ -210,7 +210,7 @@ function makeTable() {
 
     // dbeli
     echo "<h3>DBELI</h3>";
-    echo "<table class='table table-dark'>";
+    echo "<table class='table table-dark table-striped'>";
     echo "<thead>";
     echo "<tr>";
     echo "<th>nogenerate</th>";
@@ -240,7 +240,7 @@ function makeTable() {
     
     // dbayarjual
     echo "<h3>DBAYARJUAL</h3>";
-    echo "<table class='table table-dark'>";
+    echo "<table class='table table-dark table-striped'>";
     echo "<thead>";
     echo "<tr>";
     echo "<th>no</th>";
@@ -270,7 +270,7 @@ function makeTable() {
     
     // dbayarbeli
     echo "<h3>DBAYARBELI</h3>";
-    echo "<table class='table table-dark'>";
+    echo "<table class='table table-dark table-striped'>";
     echo "<thead>";
     echo "<tr>";
     echo "<th>no</th>";
