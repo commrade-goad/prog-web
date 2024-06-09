@@ -1,8 +1,5 @@
-let sidebar_div = document.getElementById("sidebar");
-
-sidebar_div.innerHTML = `
-<div class="left-bar secondary-color">
-    <div class="flex-shrink-0 p-3" style="width: 280px">
+<div class="left-bar secondary-color dark-bg-custom">
+    <div class="flex-shrink-0 p-3 dark-bg-custom" style="width: 280px">
         <ul class="list-unstyled ps-0">
             <li class="mb-1 text-white">
                 <button
@@ -15,27 +12,28 @@ sidebar_div.innerHTML = `
                 </button>
                 <div class="collapse" id="home-collapse" style="">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li>
-                            <a
-                                href="#"
-                                class="text-white d-inline-flex text-decoration-none rounded"
-                            >Overview</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="#"
-                                class="text-white d-inline-flex text-decoration-none rounded"
-                            >Updates</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="#"
-                                class="text-white d-inline-flex text-decoration-none rounded"
-                            >Reports</a
-                            >
-                        </li>
+                        <?php
+                        if (!isset($_SESSION["start"])) {
+                            echo "<script>window.location=\"/login\"</script>";
+                        }
+                        if ($_SESSION["user type"] == 1) {
+                        echo "<li>";
+                        echo "<a";
+                        echo " href='?tview=all'";
+                        echo "class='text-white d-inline-flex text-decoration-none rounded'";
+                        echo ">Overview all</a";
+                        echo ">";
+                        echo "</li>";
+                        } else {
+                        echo "<li>";
+                        echo "<a";
+                        echo " href='#'";
+                        echo "class='text-white d-inline-flex text-decoration-none rounded'";
+                        echo ">Not Available</a";
+                        echo ">";
+                        echo "</li>";
+                        }
+                        ?>
                     </ul>
                 </div>
             </li>
@@ -139,13 +137,6 @@ sidebar_div.innerHTML = `
                             <a
                                 href="#"
                                 class="text-white d-inline-flex text-decoration-none rounded"
-                            >New...</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="#"
-                                class="text-white d-inline-flex text-decoration-none rounded"
                             >Profile</a
                             >
                         </li>
@@ -169,4 +160,3 @@ sidebar_div.innerHTML = `
         </ul>
     </div>
 </div>
-`

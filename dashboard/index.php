@@ -9,7 +9,7 @@ if (!isset($_SESSION["start"])) {
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Bootstrap demo</title>
+        <title>Dashboard</title>
         <link rel="stylesheet" href="/css/style.css" />
         <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
@@ -19,25 +19,41 @@ if (!isset($_SESSION["start"])) {
     />
     </head>
 
-    <body>
-        <div id="header"></div>
-        <div id="sidebar"></div>
+    <body class="dark-bg-custom">
+        <div id="header">
+            <?php
+            include '../php-component/header.php';
+            ?>
+        </div>
+        <div id="sidebar">
+            <?php
+            include '../php-component/sidebar.php';
+            ?>
+        </div>
         <div class="content">
-            <h1>Hello, world!</h1>
-            <h1>Generate PDF</h1>
+            <!-- <h1>Hello, world!</h1> -->
+            <!-- <h1>Generate PDF</h1> -->
+            <!-- <button id="generate-pdf">Generate PDF</button> -->
             <div id="content-real">
+                <?php
+                include '../php-component/table.php';
+                if (isset($_GET["tview"])) {
+                    if ($_GET["tview"] == "all") {
+                        echo "<div class='table-start' id='table-pos'>";
+                        makeTable();
+                        echo "</div>";
+                    }
+                }
+                ?>
             </div>
-            <button id="generate-pdf">Generate PDF</button>
             <script src="/js/jspdf.umd.min.js"></script>
             <script src="/js/html2canvas.min.js"></script>
-            <script type="module" src="js/print.js"></script>
+            <script type="module" src="/js/print.js"></script>
         </div>
         <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"
     ></script>
-        <script src="/js/c-header.js"></script>
-        <script src="/js/c-sidebar.js"></script>
     </body>
 </html>

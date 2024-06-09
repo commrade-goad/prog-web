@@ -1,12 +1,16 @@
 * {margin: 0px; padding: 0px; font-family: Arial, Helvetica, sans-serif;}
 
+.dark-bg-custom {
+    background: rgb(33, 37, 41);
+}
+
 .left-bar {
     left: 0;
     position: absolute;
     min-width: 18rem;
-    border-right: 1px solid;
+    /* border-top: 1px rgba(33, 37, 41, 0.5); */
     height: 100vh;
-    background: #424242;
+    background: rgb(33, 37, 41);
     color: white;
 }
 

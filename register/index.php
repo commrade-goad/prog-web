@@ -23,6 +23,8 @@
                 <input type="text" name="username" required placeholder="username"/><br/><br/>
                 <label for="password"/>Password:<br/></label>
                 <input type="password" name="password" required placeholder="password"/><br/><br/>
+                <label for="type"/>Account type:<br/></label>
+                <input type="number" name="type" required min=1 max=2 /><br/><br/>
                 <input type="submit" name="reg" value="Register" id="login">
                 <p><a href="/login">Go back to Login</a></p>
             </form>
