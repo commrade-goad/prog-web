@@ -37,11 +37,14 @@ if (!isset($_SESSION["start"])) {
             <div id="content-real">
                 <?php
                 include '../php-component/table.php';
+                include '../php-component/table-handle.php';
                 if (isset($_GET["tview"])) {
                     if ($_GET["tview"] == "all") {
-                        echo "<div class='table-start' id='table-pos'>";
-                        makeTable();
-                        echo "</div>";
+                        if ($_SESSION["user type"] == 1) {
+                            echo "<div class='table-start' id='table-pos'>";
+                            makeTable("/dashboard/?tview=all");
+                            echo "</div>";
+                        } else {echo "<h1>Illegal access.</h1>";}
                     }
                 }
                 ?>

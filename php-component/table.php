@@ -4,7 +4,7 @@ function connect_db() {
     return $db;
 }
 
-function makeTable() {
+function makeTable($dest) {
     $db = connect_db();
     // item
     echo "<h3>ITEM</h3>";
@@ -35,6 +35,10 @@ function makeTable() {
 
     echo "</tbody>";
     echo "</table>";
+    echo "<form action='$dest' method='post' class='inline-button'>";
+    echo "<input type='submit' name='del-item' value='Delete'>";
+    echo "<input type='submit' name='add-item' value='Add'>";
+    echo "</form>";
     
     // pemasok
     echo "<h3>PEMASOK</h3>";
