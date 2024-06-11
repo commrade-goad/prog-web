@@ -36,8 +36,8 @@ function makeTable($dest) {
     echo "</tbody>";
     echo "</table>";
     echo "<form action='$dest' method='post' class='inline-button'>";
-    echo "<input type='submit' name='del-item' value='Delete'>";
-    echo "<input type='submit' name='add-item' value='Add'>";
+    echo "<input class='table-button' type='submit' name='del-item' value='Delete'>";
+    echo "<input class='table-button' type='submit' name='add-item' value='Add'>";
     echo "</form>";
     
     // pemasok
@@ -49,7 +49,7 @@ function makeTable($dest) {
     echo "<th>namapemasok</th>";
     echo "<th>alamat</th>";
     echo "<th>kota</th>";
-    echo "<th>telpon</th>";
+    echo "<th>telepon</th>";
     echo "<th>email</th>";
     echo "</tr>";
     echo "</thead>";
@@ -62,13 +62,17 @@ function makeTable($dest) {
         echo "<td>" . $row["namapemasok"] . "</td>";
         echo "<td>" . $row["alamat"] . "</td>";
         echo "<td>" . $row["kota"] . "</td>";
-        echo "<td>" . $row["telpon"] . "</td>";
+        echo "<td>" . $row["telepon"] . "</td>";
         echo "<td>" . $row["email"] . "</td>";
         echo "</tr>";
     }
 
     echo "</tbody>";
     echo "</table>";
+    echo "<form action='$dest' method='post' class='inline-button'>";
+    echo "<input class='table-button' type='submit' name='del-pemasok' value='Delete'>";
+    echo "<input class='table-button' type='submit' name='add-pemasok' value='Add'>";
+    echo "</form>";
     
     // pelanggan 
     echo "<h3>PELANGGAN</h3>";
