@@ -47,6 +47,14 @@ if (!isset($_SESSION["start"])) {
                             makeTable($dest);
                             echo "</div>";
                         } else {echo "<h1>Illegal access.</h1>";}
+                    } else {
+                        if (isset($_SESSION["displayed"])) {
+                            unset($_SESSION["displayed"]);
+                        }
+                    }
+                } else {
+                    if (isset($_SESSION["displayed"])) {
+                        unset($_SESSION["displayed"]);
                     }
                 }
                 ?>

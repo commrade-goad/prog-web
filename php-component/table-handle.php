@@ -1,8 +1,4 @@
 <?php
-
-$dest = $_SESSION["location"];
-$table_name = array("item", "pemasok", "pelanggan", "rekening", "hjual", "djual", "hbeli", "dbeli", "dbayarjual", "dbayarbeli");
-
 // to make array of sql items
 class SqlItem {
     public $name;
@@ -75,51 +71,36 @@ function handle_req(string $add_handle, string $rm_handle, array $template, arra
     }
 }
 
-/// ITEM FORM
+/// FORM
+if (isset($_SESSION["displayed"])) {
+    $dest = $_SESSION["location"];
+    $table_name = $_SESSION["table"];
+    $template = $_SESSION["template"];
+    $template_t = $_SESSION["template_t"];
 
-$template_item = array("kodeitem", "nama", "hargabeli", "hargajual", "stok", "satuan");
-$template_item_t = array("text", "text", "number", "number", "number", "text");
-$item_add_handle = "done-add-item";
-$item_rm_handle = "done-rm-item";
-$item_key = $template_item[0];
-$item_tbl = $table_name[0];
+    for ($i=0; $i < count($template); $i++) { 
+        $template_item = $template[$i];
+        $template_item_t = $template_t[$i];
+        $item_add_handle = "done-add-$table_name[$i]";
+        $item_rm_handle = "done-rm-$table_name[$i]";
+        $item_key = $template_item[0];
+        $item_tbl = $table_name[$i];
 
-if (isset($_POST["del-item"])) {
-    $data = new SqlItem();
-    $result = $data->gen_object(array($item_key), array("text"));
-    $data->make_form($result, $dest, "Remove Item", $item_rm_handle);
-} elseif (isset($_POST["add-item"])) {
-    $data = new SqlItem();
-    $result = $data->gen_object($template_item, $template_item_t);
-    $data->make_form($result, $dest, "Add Item", $item_add_handle);
-}
+        if (isset($_POST["del-$item_tbl"])) {
+            $data = new SqlItem();
+            $result = $data->gen_object(array($item_key), array($template_item_t[0]));
+            $data->make_form($result, $dest, "Remove $item_tbl", $item_rm_handle);
+        } elseif (isset($_POST["add-$item_tbl"])) {
+            $data = new SqlItem();
+            $result = $data->gen_object($template_item, $template_item_t);
+            $data->make_form($result, $dest, "Add $item_tbl", $item_add_handle);
+        }
 
-handle_req($item_add_handle, $item_rm_handle, $template_item, $template_item_t, $item_key, $item_tbl);
+        handle_req($item_add_handle, $item_rm_handle, $template_item, $template_item_t, $item_key, $item_tbl);
+    }
 
-/// PEMASOK FORM
-
-$template_pemasok= array("kodepemasok", "namapemasok", "alamat", "kota", "telepon", "email");
-$template_pemasok_t= array("text", "text", "text", "text", "text", "text");
-$pemasok_add_handle = "done-add-pemasok";
-$pemasok_rm_handle = "done-rm-pemasok";
-$pemasok_key = $template_pemasok[0];
-$pemasok_tbl = $table_name[1];
-
-if (isset($_POST["del-pemasok"])) {
-    $data = new SqlItem();
-    $result = $data->gen_object(array($pemasok_key), array("text"));
-    $data->make_form($result, $dest, "Remove pemasok", $pemasok_rm_handle);
-} elseif (isset($_POST["add-pemasok"])) {
-    $data = new SqlItem();
-    $result = $data->gen_object($template_pemasok, $template_pemasok_t);
-    $data->make_form($result, $dest, "Add Pemasok", $pemasok_add_handle);
-}
-
-handle_req($pemasok_add_handle, $pemasok_rm_handle, $template_pemasok, $template_pemasok_t, $pemasok_key, $pemasok_tbl);
-
-///////////////////////////////////
-
-if (isset($_POST["cancel"])) {
-    echo "<script>document.getElementById('popout').innerHTML='';</script>";
+    if (isset($_POST["cancel"])) {
+        echo "<script>document.getElementById('popout').innerHTML='';</script>";
+    }
 }
 ?>
