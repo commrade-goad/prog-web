@@ -40,9 +40,11 @@ if (!isset($_SESSION["start"])) {
                 include '../php-component/table-handle.php';
                 if (isset($_GET["tview"])) {
                     if ($_GET["tview"] == "all") {
+                        $dest = "/dashboard/?tview=all";
+                        $_SESSION["location"] = $dest;
                         if ($_SESSION["user type"] == 1) {
                             echo "<div class='table-start' id='table-pos'>";
-                            makeTable("/dashboard/?tview=all");
+                            makeTable($dest);
                             echo "</div>";
                         } else {echo "<h1>Illegal access.</h1>";}
                     }

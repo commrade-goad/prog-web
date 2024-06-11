@@ -7,6 +7,7 @@ function connect_db() {
 function makeTable($dest) {
     $db = connect_db();
     // item
+    echo "<div class='table-responsive'>";
     echo "<h3>ITEM</h3>";
     echo "<table class='table table-dark table-striped'>";
     echo "<thead>";
@@ -35,6 +36,7 @@ function makeTable($dest) {
 
     echo "</tbody>";
     echo "</table>";
+    echo "</div>";
     echo "<form action='$dest' method='post' class='inline-button'>";
     echo "<input class='table-button' type='submit' name='del-item' value='Delete'>";
     echo "<input class='table-button' type='submit' name='add-item' value='Add'>";
