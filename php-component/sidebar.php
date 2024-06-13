@@ -1,7 +1,7 @@
 <div class="left-bar secondary-color dark-bg-custom">
     <div class="flex-shrink-0 p-3 dark-bg-custom" style="width: 280px">
         <ul class="list-unstyled ps-0">
-            <li class="mb-1 text-white">
+            <li class="p-2 mb-1 text-white">
                 <button
                     class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white fw-bold"
                     data-bs-toggle="collapse"
@@ -10,7 +10,7 @@
                 >
                     <i class='nf nf-cod-table' style='margin-right:10px;'></i>Table Overview
                 </button>
-                <div class="collapse" id="home-collapse" style="">
+                <div class="collapse mt-2" id="home-collapse" style="">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                         <?php
                         if (!isset($_SESSION["start"])) {
@@ -37,7 +37,7 @@
                     </ul>
                 </div>
             </li>
-            <li class="mb-1">
+            <li class="p-2 mb-1">
                 <button
                     class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white fw-bold"
                     data-bs-toggle="collapse"
@@ -46,7 +46,7 @@
                 >
                     <i class='nf nf-cod-dashboard' style='margin-right:10px;'></i>Dashboard
                 </button>
-                <div class="collapse" id="dashboard-collapse">
+                <div class="collapse mt-2" id="dashboard-collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                         <li>
                             <a
@@ -80,7 +80,7 @@
                 </div>
             </li>
             <li class="border-top my-3"></li>
-            <li class="mb-1">
+            <li class="p-2 mb-1">
                 <button
                     class="btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white fw-bold"
                     data-bs-toggle="collapse"
@@ -89,7 +89,7 @@
                 >
                     <i class='nf nf-md-account' style='margin-right:10px;'></i>Account
                 </button>
-                <div class="collapse show" id="account-collapse" style="">
+                <div class="collapse show mt-2" id="account-collapse" style="">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                         <li>
                             <a
