@@ -32,8 +32,8 @@
                 <?php
                 $type = $_SESSION["user type"];
                 $name = $_SESSION["user name"];
-                echo "<li class='px-2 text-white'>Acc: " . $name . "</li>";
-                echo "<li class='px-2 text-white'>Type: " . $type . "</li>";
+                echo "<li class='px-2 text-white'><i class='nf nf-fa-user'></i> : " . $name . "</li>";
+                echo "<li class='px-2 text-white'><i class='nf nf-cod-type_hierarchy'></i> : " . $type . "</li>";
                 ?>
             </ul>
             <!-- <button type="button" class="btn btn-outline-light me-2"> -->

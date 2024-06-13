@@ -1,3 +1,5 @@
+@import "https://www.nerdfonts.com/assets/css/webfont.css";
+
 * {margin: 0px; padding: 0px; font-family: Arial, Helvetica, sans-serif;}
 
 .dark-bg-custom {
@@ -171,4 +173,11 @@ body {
     background: white;
     color: rgb(33, 37, 41);
     transition: background, border ease-in-out 0.2s;
+}
+
+.btn {
+    border: none;
+    background: none;
+    padding: 0 !important;
+    cursor: pointer;
 }

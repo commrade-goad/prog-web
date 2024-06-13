@@ -54,16 +54,23 @@ function makeTable($dest) {
         for ($j=0; $j < count($template[$i]); $j++) { 
             echo "<th>" . $template[$i][$j] . "</th>";
         }
+        echo "<td></td>";
         echo "</tr>";
         echo "</thead>";
         echo "<tbody>";
 
         $results = $db->query("select * from $name;");
         while ($row= $results->fetchArray()) {
+            $current_id = $row[$template[$i][0]];
             echo "<tr>";
             for ($j=0; $j < count($template[$i]); $j++) { 
                 echo "<td>" . $row[$template[$i][$j]] . "</td>";
             }
+            echo "<td>";
+            echo "<form method='post' action=$dest>";
+            echo "<button name='edit-$name' type='submit' class='btn text-white' value='$current_id'>&nbsp<i class='nf nf-fa-edit'></i>&nbsp</button>";
+            echo "</form>";
+            echo "</td>";
             echo "</tr>";
         }
 

@@ -8,7 +8,7 @@
                     data-bs-target="#home-collapse"
                     aria-expanded="false"
                 >
-                    Home
+                    <i class='nf nf-cod-table' style='margin-right:10px;'></i>Table Overview
                 </button>
                 <div class="collapse" id="home-collapse" style="">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
@@ -44,7 +44,7 @@
                     data-bs-target="#dashboard-collapse"
                     aria-expanded="false"
                 >
-                    Dashboard
+                    <i class='nf nf-cod-dashboard' style='margin-right:10px;'></i>Dashboard
                 </button>
                 <div class="collapse" id="dashboard-collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
@@ -79,48 +79,6 @@
                     </ul>
                 </div>
             </li>
-            <li class="mb-1">
-                <button
-                    class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white fw-bold"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#orders-collapse"
-                    aria-expanded="false"
-                >
-                    Orders
-                </button>
-                <div class="collapse" id="orders-collapse">
-                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li>
-                            <a
-                                href="#"
-                                class="text-white d-inline-flex text-decoration-none rounded"
-                            >New</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="#"
-                                class="text-white d-inline-flex text-decoration-none rounded"
-                            >Processed</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="#"
-                                class="text-white d-inline-flex text-decoration-none rounded"
-                            >Shipped</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="#"
-                                class="text-white d-inline-flex text-decoration-none rounded"
-                            >Returned</a
-                            >
-                        </li>
-                    </ul>
-                </div>
-            </li>
             <li class="border-top my-3"></li>
             <li class="mb-1">
                 <button
@@ -129,7 +87,7 @@
                     data-bs-target="#account-collapse"
                     aria-expanded="true"
                 >
-                    Account
+                    <i class='nf nf-md-account' style='margin-right:10px;'></i>Account
                 </button>
                 <div class="collapse show" id="account-collapse" style="">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
