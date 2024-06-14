@@ -150,7 +150,7 @@ body {
 }
 
 .table-button {
-    min-width: 100px;
+    min-width: 30px;
     background: rgba(255, 255, 255, 0.2);
     padding: 3px;
     margin: 5px;
@@ -161,6 +161,8 @@ body {
     color: white;
     border: 1px solid rgba(255, 255, 255, 0.2);
     transition: background, border ease-in-out 0.3s;
+    font-size: 0.7em;
+    min-height: 30px;
 }
 
 .table-button:hover {

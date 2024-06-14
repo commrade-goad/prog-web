@@ -43,6 +43,9 @@ function makeTable($dest) {
     add_data($table_name, $template, $template_t);
     $_SESSION["displayed"] = true;
 
+    // echo "<div class='search-bar'><input type='text' name='search'>";
+    // echo "<input type='submit' name='search-button' value='Search'>";
+    // echo "</div>";
     for ($i=0; $i < count($table_name); $i++) { 
         $name_upper = strtoupper($table_name[$i]);
         $name = $table_name[$i];
@@ -77,9 +80,12 @@ function makeTable($dest) {
         echo "</tbody>";
         echo "</table>";
         echo "</div>";
-        echo "<form action='$dest' method='post' class='inline-button'>";
-        echo "<input class='table-button' type='submit' name='del-$name' value='Delete'>";
-        echo "<input class='table-button' type='submit' name='add-$name' value='Add'>";
+        echo "<form action='$dest' method='post' class='inline-button mb-1'>";
+        echo "<span>Option : </span>";
+        echo "<button class='table-button p-1' type='submit' name='del-$name'><i class='nf nf-fa-minus'></i></button>";
+        echo "<button class='table-button p-1' type='submit' name='add-$name'><i class='nf nf-fa-plus'></i></button>";
+        // echo "<input class='table-button' type='submit' name='del-$name' value='Delete'>";
+        // echo "<input class='table-button' type='submit' name='add-$name' value='Add'>";
         echo "</form>";
     }
 }
