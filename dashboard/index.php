@@ -27,6 +27,7 @@ if (!isset($_SESSION["start"])) {
         </div>
         <div id="sidebar">
             <?php
+            include '../php-component/table.php';
             include '../php-component/sidebar.php';
             ?>
         </div>
@@ -36,7 +37,6 @@ if (!isset($_SESSION["start"])) {
             <!-- <button id="generate-pdf">Generate PDF</button> -->
             <div id="content-real">
                 <?php
-                include '../php-component/table.php';
                 include '../php-component/table-handle.php';
                 if (isset($_GET["tview"])) {
                     if ($_GET["tview"] == "all") {
@@ -48,10 +48,50 @@ if (!isset($_SESSION["start"])) {
                             echo "</div>";
                         } else {echo "<h1>Illegal access.</h1>";}
                     } else {
+                        $found = false;
+                        for ($i=0; $i < count($_SESSION["table name"]); $i++) { 
+                            $current = $_SESSION["table name"][$i];
+                            if ($current == $_GET["tview"]) {
+                                $found = true;
+                                $dest = "/dashboard/?tview=$current";
+                                $_SESSION["location"] = $dest;
+                                makeSingleTable($dest, $current);
+                            } 
+                        }
+                        if (isset($_SESSION["displayed"]) && $found == false) {
+                            unset($_SESSION["displayed"]);
+                        }
+                    }
+                } elseif (isset($_GET["acc"])) {
+                    if ($_GET["acc"] == "profile") {
+                        echo "<div class='d-flex justify-content-center'>";
+                        echo "<p><b><i class='nf nf-fa-user'></i> username : </b>" . $_SESSION["user name"] . "</p>";
+                        echo "</div>";
+                        echo "<div class='d-flex justify-content-center'>";
+                        echo "<p><b><i class='nf nf-md-email_open'></i> email : </b>" . $_SESSION["user email"] . "</p>";
+                        echo "</div>";
+                        echo "<div class='d-flex justify-content-center'>";
+                        echo "<p><b><i class='nf nf-cod-type_hierarchy'></i> type : </b>" . $_SESSION["user type"];
+                        if ($_SESSION["user type"] == 1) {
+                            echo " (Admin)";
+                        } else {
+                            echo " (User)";
+                        }
+                        echo "</p>";
+                        echo "</div>";
+                        echo "<div class='d-flex justify-content-center'>";
+                        echo "<iframe width='560' height='315' src='https://www.youtube.com/embed/dQw4w9WgXcQ?si=Dt0HesjU21EEhOV6' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share' referrerpolicy='strict-origin-when-cross-origin' allowfullscreen></iframe>";
+                        echo "</div>";
+                    } elseif ($_GET["acc"] = "settings") {
+                        include "../php-component/acc-settings.php";
+                        $dest = "/dashboard/?acc=settings";
+                        renderAccSettings($dest);
+                    } else {
                         if (isset($_SESSION["displayed"])) {
                             unset($_SESSION["displayed"]);
                         }
                     }
+
                 } else {
                     if (isset($_SESSION["displayed"])) {
                         unset($_SESSION["displayed"]);

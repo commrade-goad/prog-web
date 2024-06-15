@@ -98,7 +98,7 @@ function handle_req(string $add_handle, string $rm_handle, string $edit_handle, 
         }
         $str = $str . ") values (";
         for ($i=0; $i < count($template); $i++) {
-            if ($template_t[$i] == "text") {
+            if ($template_t[$i] == "text" || $template_t[$i] == "date") {
                 $str = $str . "'" . $_POST[$template[$i]] . "'" ;
             } else {
                 $str = $str . "" . $_POST[$template[$i]];
@@ -124,7 +124,7 @@ function handle_req(string $add_handle, string $rm_handle, string $edit_handle, 
         $str = "update $table_name set ";
         for ($i=1; $i < count($template); $i++) {
             $str = $str . $template[$i] . '=';
-            if ($template_t[$i] == "text") {
+            if ($template_t[$i] == "text" || $template_t[$i] == "date") {
                 $str = $str . "'" . $_POST[$template[$i]] . "'" ;
             } else {
                 $str = $str . "" . $_POST[$template[$i]];

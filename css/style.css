@@ -183,3 +183,14 @@ body {
     padding: 0 !important;
     cursor: pointer;
 }
+
+.acc-input {
+    min-width: 300px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 3px;
+    padding-left: 10px;
+    border-radius: 6px;
+    border: none;
+    color: white;
+    font-size: 0.8em;
+}

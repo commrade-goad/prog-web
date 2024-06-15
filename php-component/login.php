@@ -3,22 +3,25 @@ session_start();
 $nama = array();
 $pass = array();
 $type = array();
+$email = array();
 $_SESSION["user type"] = 0;
 $db = new SQLite3('../db/database.db');
 
 
 if (isset($_POST["login"])) {
-    $results = $db->query('select name, password, type from users;');
+    $results = $db->query('select name, password, email, type from users;');
     while ($row = $results->fetchArray()) {
         array_push($nama, $row["name"]);
         array_push($pass, $row["password"]);
         array_push($type, $row["type"]);
+        array_push($email, $row["email"]);
     }
     for ($i=0; $i < count($nama); $i++) { 
         if ($_POST["username"] == $nama[$i] && $_POST["password"] == $pass[$i]) {
             $_SESSION["start"] = true;
             $_SESSION["user type"] = $type[$i];
             $_SESSION["user name"] = $nama[$i];
+            $_SESSION["user email"] = $email[$i];
             echo "<script>window.location=\"/dashboard/\"</script>";
         }
     }

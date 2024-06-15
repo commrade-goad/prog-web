@@ -16,22 +16,33 @@
                         if (!isset($_SESSION["start"])) {
                             echo "<script>window.location=\"/login\"</script>";
                         }
+
                         if ($_SESSION["user type"] == 1) {
-                        echo "<li>";
-                        echo "<a";
-                        echo " href='?tview=all'";
-                        echo "class='text-white d-inline-flex text-decoration-none rounded'";
-                        echo ">Overview all</a";
-                        echo ">";
-                        echo "</li>";
+                            echo "<li>";
+                            echo "<a";
+                            echo " href='?tview=all'";
+                            echo "class='text-white d-inline-flex text-decoration-none rounded'";
+                            echo ">Overview all</a";
+                            echo ">";
+                            echo "</li>";
+                            $table_name = $_SESSION["table name"];
+                            for ($i=0; $i < count($table_name); $i++) { 
+                                 echo "<li>";
+                                 echo "<a";
+                                 echo " href='?tview=$table_name[$i]'";
+                                 echo "class='text-white d-inline-flex text-decoration-none rounded'";
+                                 echo ">$table_name[$i]</a";
+                                 echo ">";
+                                 echo "</li>";
+                            }
                         } else {
-                        echo "<li>";
-                        echo "<a";
-                        echo " href='#'";
-                        echo "class='text-white d-inline-flex text-decoration-none rounded'";
-                        echo ">Not Available</a";
-                        echo ">";
-                        echo "</li>";
+                            echo "<li>";
+                            echo "<a";
+                            echo " href='#'";
+                            echo "class='text-white d-inline-flex text-decoration-none rounded'";
+                            echo ">Not Available</a";
+                            echo ">";
+                            echo "</li>";
                         }
                         ?>
                     </ul>
@@ -93,14 +104,14 @@
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                         <li>
                             <a
-                                href="#"
+                                href="?acc=profile"
                                 class="text-white d-inline-flex text-decoration-none rounded"
                             >Profile</a
                             >
                         </li>
                         <li>
                             <a
-                                href="#"
+                                href="?acc=settings"
                                 class="text-white d-inline-flex text-decoration-none rounded"
                             >Settings</a
                             >

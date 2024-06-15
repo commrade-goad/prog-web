@@ -1,11 +1,18 @@
 <?php
+function get_table_name():void {
+    $ret = array("item", "pemasok", "pelanggan", "rekening", "hjual", "djual", "hbeli", "dbeli", "dbayarjual", "dbayarbeli");
+    $_SESSION["table name"] = $ret;
+}
+
+get_table_name();
+
 function connect_db() {
     $db = new SQLite3('../db/database.db');
     return $db;
 }
 
 function add_data(&$table_name, &$template, &$template_t) {
-    $table_name = array("item", "pemasok", "pelanggan", "rekening", "hjual", "djual", "hbeli", "dbeli", "dbayarjual", "dbayarbeli");
+    $table_name = $_SESSION["table name"];
     $template = array(
         array("kodeitem", "nama", "hargabeli", "hargajual", "stok", "satuan"),
         array("kodepemasok", "namapemasok", "alamat", "kota", "telepon", "email"),
@@ -23,12 +30,12 @@ function add_data(&$table_name, &$template, &$template_t) {
         array("text", "text", "text", "text", "text", "text"),
         array("text", "text", "text", "text", "text", "text"),
         array("text", "text", "number"),
-        array("text", "text", "text", "number", "text"),
+        array("text", "date", "text", "number", "text"),
         array("number", "text", "text", "number", "number", "number"),
-        array("nobeli", "text", "text", "text", "number", "text"),
+        array("text", "text", "date", "text", "number", "text"),
         array("number", "text", "text", "number", "number", "number"),
-        array("number", "text", "text", "number", "text", "text"),
-        array("number", "text", "text", "number", "text", "text"), 
+        array("number", "text", "date", "number", "text", "text"),
+        array("number", "text", "date", "number", "text", "text"), 
     );
     $_SESSION["table"] = $table_name;
     $_SESSION["template"] = $template;
@@ -88,6 +95,61 @@ function makeTable($dest) {
         // echo "<input class='table-button' type='submit' name='add-$name' value='Add'>";
         echo "</form>";
     }
+}
+
+function makeSingleTable($dest, $name) {
+    $db = connect_db();
+    $table_name = array();
+    $template = array();
+    $template_t = array();
+    add_data($table_name, $template, $template_t);
+
+    $index = 0;
+    for ($i=0; $i < count($template); $i++) { 
+        if ($table_name[$i] == $name) {
+            $index = $i;
+        }
+    }
+    $_SESSION["displayed"] = true;
+    $name_upper = strtoupper($name);
+    echo "<div class='table-responsive'>";
+    echo "<h3>$name_upper</h3>";
+    echo "<table class='table table-dark table-striped'>";
+    echo "<thead>";
+    echo "<tr>";
+    for ($j=0; $j < count($template[$index]); $j++) { 
+        echo "<th>" . $template[$index][$j] . "</th>";
+    }
+    echo "<td></td>";
+    echo "</tr>";
+    echo "</thead>";
+    echo "<tbody>";
+
+    $results = $db->query("select * from $name;");
+    while ($row= $results->fetchArray()) {
+        $current_id = $row[$template[$index][0]];
+        echo "<tr>";
+        for ($j=0; $j < count($template[$index]); $j++) { 
+            echo "<td>" . $row[$template[$index][$j]] . "</td>";
+        }
+        echo "<td>";
+        echo "<form method='post' action=$dest>";
+        echo "<button name='edit-$name' type='submit' class='btn text-white' value='$current_id'>&nbsp<i class='nf nf-fa-edit'></i>&nbsp</button>";
+        echo "</form>";
+        echo "</td>";
+        echo "</tr>";
+    }
+
+    echo "</tbody>";
+    echo "</table>";
+    echo "</div>";
+    echo "<form action='$dest' method='post' class='inline-button mb-1'>";
+    echo "<span>Option : </span>";
+    echo "<button class='table-button p-1' type='submit' name='del-$name'><i class='nf nf-fa-minus'></i></button>";
+    echo "<button class='table-button p-1' type='submit' name='add-$name'><i class='nf nf-fa-plus'></i></button>";
+    // echo "<input class='table-button' type='submit' name='del-$name' value='Delete'>";
+    // echo "<input class='table-button' type='submit' name='add-$name' value='Add'>";
+    echo "</form>";
 }
 
 ?>
