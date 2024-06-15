@@ -55,7 +55,11 @@ if (!isset($_SESSION["start"])) {
                                 $found = true;
                                 $dest = "/dashboard/?tview=$current";
                                 $_SESSION["location"] = $dest;
-                                makeSingleTable($dest, $current);
+                                if ($_SESSION["user type"] == 1) {
+                                    makeSingleTable($dest, $current, true);
+                                } else {
+                                    makeSingleTable($dest, $current, false);
+                                }
                             } 
                         }
                         if (isset($_SESSION["displayed"]) && $found == false) {

@@ -36,13 +36,16 @@
                                  echo "</li>";
                             }
                         } else {
-                            echo "<li>";
-                            echo "<a";
-                            echo " href='#'";
-                            echo "class='text-white d-inline-flex text-decoration-none rounded'";
-                            echo ">Not Available</a";
-                            echo ">";
-                            echo "</li>";
+                            $avail = array("item", "rekening", "dbayarbeli", "dbayarjual");
+                            for ($i=0; $i < count($avail); $i++) { 
+                                 echo "<li>";
+                                 echo "<a";
+                                 echo " href='?tview=$avail[$i]'";
+                                 echo "class='text-white d-inline-flex text-decoration-none rounded'";
+                                 echo ">$avail[$i]</a";
+                                 echo ">";
+                                 echo "</li>";
+                            }
                         }
                         ?>
                     </ul>

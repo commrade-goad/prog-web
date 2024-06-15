@@ -97,7 +97,7 @@ function makeTable($dest) {
     }
 }
 
-function makeSingleTable($dest, $name) {
+function makeSingleTable($dest, $name, $cando) {
     $db = connect_db();
     $table_name = array();
     $template = array();
@@ -120,7 +120,9 @@ function makeSingleTable($dest, $name) {
     for ($j=0; $j < count($template[$index]); $j++) { 
         echo "<th>" . $template[$index][$j] . "</th>";
     }
-    echo "<td></td>";
+    if ($cando) {
+        echo "<td></td>";
+    }
     echo "</tr>";
     echo "</thead>";
     echo "<tbody>";
@@ -132,24 +134,28 @@ function makeSingleTable($dest, $name) {
         for ($j=0; $j < count($template[$index]); $j++) { 
             echo "<td>" . $row[$template[$index][$j]] . "</td>";
         }
-        echo "<td>";
-        echo "<form method='post' action=$dest>";
-        echo "<button name='edit-$name' type='submit' class='btn text-white' value='$current_id'>&nbsp<i class='nf nf-fa-edit'></i>&nbsp</button>";
-        echo "</form>";
-        echo "</td>";
+        if ($cando) {
+            echo "<td>";
+            echo "<form method='post' action=$dest>";
+            echo "<button name='edit-$name' type='submit' class='btn text-white' value='$current_id'>&nbsp<i class='nf nf-fa-edit'></i>&nbsp</button>";
+            echo "</form>";
+            echo "</td>";
+        }
         echo "</tr>";
     }
 
     echo "</tbody>";
     echo "</table>";
     echo "</div>";
-    echo "<form action='$dest' method='post' class='inline-button mb-1'>";
-    echo "<span>Option : </span>";
-    echo "<button class='table-button p-1' type='submit' name='del-$name'><i class='nf nf-fa-minus'></i></button>";
-    echo "<button class='table-button p-1' type='submit' name='add-$name'><i class='nf nf-fa-plus'></i></button>";
-    // echo "<input class='table-button' type='submit' name='del-$name' value='Delete'>";
-    // echo "<input class='table-button' type='submit' name='add-$name' value='Add'>";
-    echo "</form>";
+    if ($cando) {
+        echo "<form action='$dest' method='post' class='inline-button mb-1'>";
+        echo "<span>Option : </span>";
+        echo "<button class='table-button p-1' type='submit' name='del-$name'><i class='nf nf-fa-minus'></i></button>";
+        echo "<button class='table-button p-1' type='submit' name='add-$name'><i class='nf nf-fa-plus'></i></button>";
+        // echo "<input class='table-button' type='submit' name='del-$name' value='Delete'>";
+        // echo "<input class='table-button' type='submit' name='add-$name' value='Add'>";
+        echo "</form>";
+    }
 }
 
 ?>
