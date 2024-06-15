@@ -50,8 +50,10 @@ class SqlItem {
             $type = $item[$i]->type;
             $name = $item[$i]->name;
             echo "<div class='form-input'>";
-            echo "<label for='$name'>$name: </label><br/>";
-            echo "<input type='$type' name='$name'>";
+            if ($name != "no" && $name != "nogenerate") {
+                echo "<label for='$name'>$name: </label><br/>";
+                echo "<input type='$type' name='$name'>";
+            }
             echo "</div>";
         }
         echo "<br/><input class='c-text-bold c-bg-green' type='submit' name='$submit_name' value='Submit'>";
@@ -91,6 +93,9 @@ function handle_req(string $add_handle, string $rm_handle, string $edit_handle, 
         $db = connect_db();
         $str = "insert into $table_name (";
         for ($i=0; $i < count($template); $i++) { 
+            if ($template[$i] == "no" || $template[$i] == "nogenerate") {
+                continue;
+            }
             $str = $str . $template[$i];
             if ($i != count($template) - 1) {
                 $str = $str . ",";
@@ -98,6 +103,9 @@ function handle_req(string $add_handle, string $rm_handle, string $edit_handle, 
         }
         $str = $str . ") values (";
         for ($i=0; $i < count($template); $i++) {
+            if ($template[$i] == "no" || $template[$i] == "nogenerate") {
+                continue;
+            }
             if ($template_t[$i] == "text" || $template_t[$i] == "date") {
                 $str = $str . "'" . $_POST[$template[$i]] . "'" ;
             } else {
