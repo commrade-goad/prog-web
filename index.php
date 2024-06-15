@@ -5,4 +5,9 @@ if (!isset($_SESSION["start"])) {
 } else {
     echo "<script>window.location=\"dashboard/\"</script>";
 }
+// TODO:
+//   SEARCH for the table
+//   Tambah Pembayaran / Penjualan
+//   print pdf
+//   Dashboard
 ?>
