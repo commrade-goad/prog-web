@@ -41,7 +41,7 @@ class SqlItem {
         return $item;
     }
 
-    function make_form(array $item, string $dest, string $form_name, string $submit_name):void {
+    function make_form(array $item, string $dest, string $form_name, string $submit_name, bool $disable_filter = false):void {
         echo "<div class='float-me' id='popup'>";
         echo "<h3>$form_name</h3>";
         echo "<form method='post' action='$dest'>";
@@ -50,9 +50,14 @@ class SqlItem {
             $type = $item[$i]->type;
             $name = $item[$i]->name;
             echo "<div class='form-input'>";
-            if ($name != "no" && $name != "nogenerate") {
+            if ($disable_filter) {
                 echo "<label for='$name'>$name: </label><br/>";
                 echo "<input type='$type' name='$name'>";
+            } else {
+                if ($name != "no" && $name != "nogenerate") {
+                    echo "<label for='$name'>$name: </label><br/>";
+                    echo "<input type='$type' name='$name'>";
+                }
             }
             echo "</div>";
         }
@@ -118,6 +123,22 @@ function handle_req(string $add_handle, string $rm_handle, string $edit_handle, 
         }
         $str = $str . ");";
         $results = $db->query($str);
+        if ($table_name == "djual") {
+            $sec_query = "insert into hjual (nojual, tanggal, kodepelanggan, total, keterangan) values ('" . $_POST["nojual"] . "', DATE()";
+            $sec_query = $sec_query . ", '-', " . $_POST["qty"] * $_POST["hargajual"] . ", '-')";
+            $db->query($sec_query);
+            $third_query = "insert into dbayarjual (nojual, tanggal, totalbayar, keterangan, koderekening) values ('" . $_POST["nojual"] . "', DATE()";
+            $third_query = $third_query . ", " . $_POST["qty"] * $_POST["hargajual"] . ", '-', '-')";
+            $db->query($third_query);
+        }
+        if ($table_name == "dbeli") {
+            $sec_query = "insert into hbeli (nobeli, noref, tanggal, kodepemasok, total, keterangan) values ('" . $_POST["nobeli"] . "', '-', DATE()";
+            $sec_query = $sec_query . ", '-', " . $_POST["qty"] * $_POST["hargabeli"] . ", '-')";
+            $db->query($sec_query);
+            $third_query = "insert into dbayarjual (nobeli, tanggal, totalbayar, keterangan, koderekening) values ('" . $_POST["nobeli"] . "', DATE()";
+            $third_query = $third_query . ", " . $_POST["qty"] * $_POST["hargajual"] . ", '-', '-')";
+            $db->query($third_query);
+        }
         unset($_POST[$add_handle]);
     }
     if (isset($_POST[$rm_handle])) {
@@ -170,7 +191,7 @@ if (isset($_SESSION["displayed"])) {
         if (isset($_POST["del-$item_tbl"])) {
             $data = new SqlItem();
             $result = $data->gen_object(array($item_key), array($template_item_t[0]), false);
-            $data->make_form($result, $dest, "Remove $item_tbl", $item_rm_handle);
+            $data->make_form($result, $dest, "Remove $item_tbl", $item_rm_handle, true);
         } elseif (isset($_POST["add-$item_tbl"])) {
             $data = new SqlItem();
             $result = $data->gen_object($template_item, $template_item_t, false);
