@@ -100,6 +100,8 @@ if (!isset($_SESSION["start"])) {
                     if (isset($_SESSION["displayed"])) {
                         unset($_SESSION["displayed"]);
                     }
+                    include "../php-component/dash.php";
+                    render();
                 }
                 ?>
             </div>

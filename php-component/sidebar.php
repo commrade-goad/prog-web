@@ -64,28 +64,28 @@
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                         <li>
                             <a
-                                href="#"
+                                href="/dashboard"
                                 class="text-white d-inline-flex text-decoration-none rounded"
                             >Overview</a
                             >
                         </li>
                         <li>
                             <a
-                                href="#"
+                                href="/dashboard?overview=week"
                                 class="text-white d-inline-flex text-decoration-none rounded"
                             >Weekly</a
                             >
                         </li>
                         <li>
                             <a
-                                href="#"
+                                href="/dashboard?overview=month"
                                 class="text-white d-inline-flex text-decoration-none rounded"
                             >Monthly</a
                             >
                         </li>
                         <li>
                             <a
-                                href="#"
+                                href="/dashboard?overview=year"
                                 class="text-white d-inline-flex text-decoration-none rounded"
                             >Annually</a
                             >

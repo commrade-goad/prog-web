@@ -97,7 +97,7 @@ function makeTable($dest) {
     }
 }
 
-function makeSingleTable($dest, $name, $cando) {
+function makeSingleTable($dest, $name, $cando, $from='none') {
     $db = connect_db();
     $table_name = array();
     $template = array();
@@ -127,7 +127,18 @@ function makeSingleTable($dest, $name, $cando) {
     echo "</thead>";
     echo "<tbody>";
 
-    $results = $db->query("select * from $name;");
+    if ($from == "none") {
+        $str = "select * from $name";
+    } elseif ($from == "week") {
+        $str = "select * from $name WHERE tanggal >= DATE('now', '-7 days') AND tanggal <= DATE('now')";
+    } elseif ($from == "month") {
+        $str = "select * from $name WHERE tanggal >= DATE('now', '-1 months') AND tanggal <= DATE('now')";
+    } elseif ($from == "year") {
+        $str = "select * from $name WHERE tanggal >= DATE('now', '-1 years') AND tanggal <= DATE('now')";
+    } else {
+        $str = "select * from $name";
+    }
+    $results = $db->query($str);
     while ($row= $results->fetchArray()) {
         $current_id = $row[$template[$index][0]];
         echo "<tr>";

@@ -194,3 +194,12 @@ body {
     color: white;
     font-size: 0.8em;
 }
+
+.overview-option {
+    min-width: 200px !important;
+    background: rgb(33, 37, 41);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px !important;
+}
