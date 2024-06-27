@@ -13,9 +13,9 @@ function render() {
     echo "<hr>";
     echo "<select id='overview' class='mb-2 overview-option' name='overview'>";
     echo "<option value='all' default>All</option>";
-    echo "<option value='week'>Weekly</option>";
-    echo "<option value='month'>Monthly</option>";
-    echo "<option value='year'>Annually</option>";
+    echo "<option value='week'>This Week</option>";
+    echo "<option value='month'>This Month</option>";
+    echo "<option value='year'>This Year</option>";
     echo "</select>";
     echo "<script src='/js/watch_overview.js'></script>";
 
@@ -35,12 +35,12 @@ function render() {
 
     if (isset($_POST["tbeli"])) {
         $item = array(
-           "nobeli", "kodeitem", "qty", "hargabeli", "stok", "noref", "tanggal", "kodepemasok", "keterangan", "koderekening",
+           "nobeli", "kodeitem", "qty", "hargabeli", "stok", "total", "noref", "tanggal", "kodepemasok", "keterangan", "koderekening",
            "totalbayar" 
         );
 
         $item_t = array(
-            "text", "text", "number", "number", "number", "text", "date", "text", "text", "text",
+            "text", "text", "number", "number", "number", "number", "text", "date", "text", "text", "text",
             "number"
         );
         $stuff = new SqlItem();
@@ -67,27 +67,47 @@ function render() {
 
 function handle_req_sec($jual, $beli) {
     if (isset($_POST[$jual])) {
-        echo "JUALANNNNN";
+        $db = connect_db();
+        $nojual = $_POST["nojual"];
+        $kodeitem = $_POST["kodeitem"];
+        $qty = $_POST["qty"];
+        $hargajual = $_POST["hargajual"];
+        $stok = $_POST["stok"];
+        $tanggal = $_POST["tanggal"];
+        $kodepelanggan = $_POST["kodepelanggan"];
+        $total = $_POST["total"];
+        $keterangan = $_POST["keterangan"];
+        $totalbayar = $_POST["totalbayar"];
+        $koderekening = $_POST["koderekening"];
+        $str = "insert into djual (nojual, kodeitem, qty, hargajual, stok) values ('$nojual', '$kodeitem', $qty, $hargajual, $stok)";
+        $db->query($str);
+        $str = "insert into hjual (nojual, tanggal, kodepelanggan, total, keterangan) values ('$nojual', '$tanggal', '$kodepelanggan', $total, '$keterangan')";
+        $db->query($str);
+        $str = "insert into dbayarjual (nojual, tanggal, totalbayar, keterangan, koderekening) values ('$nojual', '$tanggal', $totalbayar, '$keterangan', '$koderekening')";
+        $db->query($str);
     }
     if (isset($_POST[$beli])) {
-        echo "DUIT HABIS";
+        $db = connect_db();
+        $nobeli = $_POST["nobeli"];
+        $kodeitem = $_POST["kodeitem"];
+        $qty= $_POST["qty"];
+        $hargabeli = $_POST["hargabeli"];
+        $total = $_POST["total"];
+        $stok = $_POST["stok"];
+        $noref = $_POST["noref"];
+        $tanggal = $_POST["tanggal"];
+        $kodepemasok = $_POST["kodepemasok"];
+        $keterangan = $_POST["keterangan"];
+        $koderekening = $_POST["koderekening"];
+        $totalbayar = $_POST["totalbayar"];
+
+        $str = "insert into dbeli (nobeli, kodeitem, qty, hargabeli, stok) values ('$nobeli', '$kodeitem', $qty, $hargabeli, $stok)";
+        $db->query($str);
+        $str = "insert into hbeli (nobeli, noref, tanggal, kodepemasok, total, keterangan) values ('$nobeli', '$noref', '$tanggal', '$kodepemasok', $total, '$keterangan')";
+        $db->query($str);
+        $str = "insert into dbayarbeli (nobeli, tanggal, totalbayar, keterangan, koderekening) values ('$nobeli', '$tanggal', $totalbayar, '$keterangan', '$koderekening')";
+        $db->query($str);
     }
-    /* if ($table_name == "djual") {
-            $sec_query = "insert into hjual (nojual, tanggal, kodepelanggan, total, keterangan) values ('" . $_POST["nojual"] . "', DATE()";
-            $sec_query = $sec_query . ", '-', " . $_POST["qty"] * $_POST["hargajual"] . ", '-')";
-            $db->query($sec_query);
-            $third_query = "insert into dbayarjual (nojual, tanggal, totalbayar, keterangan, koderekening) values ('" . $_POST["nojual"] . "', DATE()";
-            $third_query = $third_query . ", " . $_POST["qty"] * $_POST["hargajual"] . ", '-', '-')";
-            $db->query($third_query);
-        }
-        if ($table_name == "dbeli") {
-            $sec_query = "insert into hbeli (nobeli, noref, tanggal, kodepemasok, total, keterangan) values ('" . $_POST["nobeli"] . "', '-', DATE()";
-            $sec_query = $sec_query . ", '-', " . $_POST["qty"] * $_POST["hargabeli"] . ", '-')";
-            $db->query($sec_query);
-            $third_query = "insert into dbayarjual (nobeli, tanggal, totalbayar, keterangan, koderekening) values ('" . $_POST["nobeli"] . "', DATE()";
-            $third_query = $third_query . ", " . $_POST["qty"] * $_POST["hargajual"] . ", '-', '-')";
-            $db->query($third_query);
-        } */
 }
 
 function make_form($name, $dest, $handle, $item) {
@@ -114,7 +134,7 @@ function make_form($name, $dest, $handle, $item) {
         }
         echo "</div>";
     }
-    if ($counter > 0 && $counter < 4) {
+    if ($counter > 0 && $counter <= 4) {
         echo "</div>";
     }
     echo "</div>";
