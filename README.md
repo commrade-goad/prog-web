@@ -2,6 +2,6 @@
 
 WIP - Work in Progress
 - [ ] SEARCH for the table
-- [ ] Tambah Pembayaran / Penjualan
+- [x] Tambah Pembayaran / Penjualan
 - [ ] print pdf
 - [x] Dashboard

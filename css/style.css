@@ -134,10 +134,6 @@ body {
     color: white;
 }
 
-.c-text-bold {
-    font-weight: bold;
-}
-
 .float-me .c-bg-green {
     background: #b9ffb5;
     color:rgb(33, 37, 41);
@@ -147,6 +143,47 @@ body {
     background: rgb(33, 37, 41);
     margin-top: 5px;
     border: 1px solid white;
+}
+
+.float-me-sec {
+    position:fixed;
+    left: 22vw;
+    bottom: 5%;
+    background: rgb(33, 37, 41);
+    margin: 20px;
+    padding: 50px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.float-me-sec input {
+    min-width: 300px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 6px;
+    border-radius: 6px;
+    border: none;
+    color: white;
+}
+
+.float-me-sec .c-bg-green {
+    background: #b9ffb5;
+    color:rgb(33, 37, 41);
+    min-width: 100%;
+}
+
+.float-me-sec .c-bg-secondary {
+    background: rgb(33, 37, 41);
+    margin-top: 5px;
+    border: 1px solid white;
+    min-width: 100%;
+}
+
+.c-text-bold {
+    font-weight: bold;
 }
 
 .table-button {
@@ -202,4 +239,12 @@ body {
     border: none;
     border-radius: 6px;
     padding: 10px !important;
+}
+
+.form-start {
+    display: flex;
+}
+
+.spacer {
+    margin-right: 20px;
 }
