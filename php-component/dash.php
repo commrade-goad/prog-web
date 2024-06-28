@@ -14,9 +14,9 @@ function render() {
     echo "<span style='margin-right:10px' class='fw-bold'>Range : </span>";
     echo "<select id='overview' class='mb-2 overview-option' name='overview'>";
     echo "<option value='all' default>All</option>";
-    echo "<option value='week'>This Week</option>";
-    echo "<option value='month'>This Month</option>";
-    echo "<option value='year'>This Year</option>";
+    echo "<option value='week'>This Week / Weekly</option>";
+    echo "<option value='month'>This Month / Monthly</option>";
+    echo "<option value='year'>This Year / Annualy</option>";
     echo "</select>";
     echo "<script src='/js/watch_overview.js'></script>";
 
@@ -30,13 +30,35 @@ function render() {
         makeSingleTable($dest, "hjual", $cando, $mode);
         makeSingleTable($dest, "dbayarbeli", $cando, $mode);
         makeSingleTable($dest, "hbeli", $cando, $mode);
+        echo "<hr>";
+        if ($mode == "week") {
+            $new_t = array("weeks", "total", "count");
+            create_rev_tab($new_t,"SELECT strftime('%Y-%W', tanggal) as weeks, SUM(totalbayar) as total, COUNT(nojual) as count FROM dbayarjual GROUP BY weeks ORDER BY weeks");
+            $new_t2 = array("weeks", "total", "count");
+            create_rev_tab($new_t2,"SELECT strftime('%Y-%W', tanggal) as weeks, SUM(totalbayar) as total, COUNT(nobeli) as count FROM dbayarbeli GROUP BY weeks ORDER BY weeks", "Expense");
+        } elseif ($mode == "month") {
+            $new_t = array("months", "total", "count");
+            create_rev_tab($new_t,"SELECT strftime('%Y-%m', tanggal) as months, SUM(totalbayar) as total, COUNT(nojual) as count FROM dbayarjual GROUP BY months ORDER BY months");
+            $new_t2 = array("months", "total", "count");
+            create_rev_tab($new_t2,"SELECT strftime('%Y-%m', tanggal) as months, SUM(totalbayar) as total, COUNT(nobeli) as count FROM dbayarbeli GROUP BY months ORDER BY months", "Expense");
+        } elseif ($mode == "year") {
+            $new_t = array("years", "total", "count");
+            create_rev_tab($new_t,"SELECT strftime('%Y', tanggal) as years, SUM(totalbayar) as total, COUNT(nojual) as count FROM dbayarjual GROUP BY years ORDER BY years");
+            $new_t2 = array("years", "total", "count");
+            create_rev_tab($new_t2,"SELECT strftime('%Y', tanggal) as years, SUM(totalbayar) as total, COUNT(nobeli) as count FROM dbayarbeli GROUP BY years ORDER BY years", "Expense");
+        } else {
+            echo "<p>Something no information is better than information.</p>";
+        }
+        echo "<hr>";
     } else {
         makeSingleTable($dest, "dbayarjual", $cando);
         makeSingleTable($dest, "hjual", $cando);
         makeSingleTable($dest, "dbayarbeli", $cando);
         makeSingleTable($dest, "hbeli", $cando);
+        echo "<hr>";
     }
-    echo "<hr>";
+
+
 
     if (isset($_POST["tbeli"])) {
         $item = array(
@@ -66,8 +88,33 @@ function render() {
         $result = $stuff->gen_object($item, $item_t);
         make_form("Penjualan", $dest, "submit-tjual", $result);
     }
-
     handle_req_sec("submit-tjual", "submit-tbeli");
+}
+
+function create_rev_tab($item, $query, $title="Revenue"){
+    echo "<div class='table-responsive'>";
+    echo "<h3>$title</h3>";
+    echo "<table class='table table-dark table-striped'>";
+    echo "<thead>";
+    echo "<tr>";
+    for ($j=0; $j < count($item); $j++) { 
+        echo "<th>" . $item[$j] . "</th>";
+    }
+    echo "</tr>";
+    echo "</thead>";
+    echo "<tbody>";
+    $db = connect_db();
+    $result = $db->query($query); 
+    while ($row = $result->fetchArray()) {
+        echo "<tr>";
+        for ($j=0; $j < count($item); $j++) { 
+            echo "<td>" . $row[$item[$j]] . "</td>";
+        }
+        echo "</tr>";
+    }
+    echo "</tbody>";
+    echo "</table>";
+    echo "</div>";
 }
 
 function handle_req_sec($jual, $beli) {

@@ -60,7 +60,7 @@
                 >
                     <i class='nf nf-cod-dashboard' style='margin-right:10px;'></i>Dashboard
                 </button>
-                <div class="collapse mt-2" id="dashboard-collapse">
+                <div class="collapse show mt-2" id="dashboard-collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                         <li>
                             <a
