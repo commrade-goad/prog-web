@@ -73,23 +73,44 @@
                             <a
                                 href="/dashboard?overview=week"
                                 class="text-white d-inline-flex text-decoration-none rounded"
-                            >Weekly</a
+                            >This week</a
                             >
                         </li>
                         <li>
                             <a
                                 href="/dashboard?overview=month"
                                 class="text-white d-inline-flex text-decoration-none rounded"
-                            >Monthly</a
+                            >This month</a
                             >
                         </li>
                         <li>
                             <a
                                 href="/dashboard?overview=year"
                                 class="text-white d-inline-flex text-decoration-none rounded"
-                            >Annually</a
+                            >This year</a
                             >
                         </li>
+                        <!-- <li>
+                            <a
+                                href="/dashboard?overview=mweek"
+                                class="text-white d-inline-flex text-decoration-none rounded"
+                            >Weekly</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="/dashboard?overview=mmonth"
+                                class="text-white d-inline-flex text-decoration-none rounded"
+                            >Monthly</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="/dashboard?overview=myear"
+                                class="text-white d-inline-flex text-decoration-none rounded"
+                            >Annually</a
+                            >
+                        </li> -->
                     </ul>
                 </div>
             </li>

@@ -123,7 +123,7 @@ function handle_req(string $add_handle, string $rm_handle, string $edit_handle, 
         }
         $str = $str . ");";
         $results = $db->query($str);
-        if ($table_name == "djual") {
+        /* if ($table_name == "djual") {
             $sec_query = "insert into hjual (nojual, tanggal, kodepelanggan, total, keterangan) values ('" . $_POST["nojual"] . "', DATE()";
             $sec_query = $sec_query . ", '-', " . $_POST["qty"] * $_POST["hargajual"] . ", '-')";
             $db->query($sec_query);
@@ -138,7 +138,7 @@ function handle_req(string $add_handle, string $rm_handle, string $edit_handle, 
             $third_query = "insert into dbayarjual (nobeli, tanggal, totalbayar, keterangan, koderekening) values ('" . $_POST["nobeli"] . "', DATE()";
             $third_query = $third_query . ", " . $_POST["qty"] * $_POST["hargajual"] . ", '-', '-')";
             $db->query($third_query);
-        }
+        } */
         unset($_POST[$add_handle]);
     }
     if (isset($_POST[$rm_handle])) {
@@ -208,7 +208,7 @@ if (isset($_SESSION["displayed"])) {
     }
 
     if (isset($_POST["cancel"])) {
-        echo "<script>document.getElementById('popout').innerHTML='';</script>";
+        // echo "<script>document.getElementById('popout').innerHTML='';</script>";
     }
 }
 ?>

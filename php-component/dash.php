@@ -11,6 +11,7 @@ function render() {
     echo "<button type='submit' name='tjual' class='table-button p-2'>Tambah Penjualan</button>";
     echo "</form>";
     echo "<hr>";
+    echo "<span style='margin-right:10px' class='fw-bold'>Range : </span>";
     echo "<select id='overview' class='mb-2 overview-option' name='overview'>";
     echo "<option value='all' default>All</option>";
     echo "<option value='week'>This Week</option>";
@@ -26,10 +27,14 @@ function render() {
     if (isset($_GET["overview"])) {
         $mode = $_GET["overview"];
         makeSingleTable($dest, "dbayarjual", $cando, $mode);
+        makeSingleTable($dest, "hjual", $cando, $mode);
         makeSingleTable($dest, "dbayarbeli", $cando, $mode);
+        makeSingleTable($dest, "hbeli", $cando, $mode);
     } else {
         makeSingleTable($dest, "dbayarjual", $cando);
+        makeSingleTable($dest, "hjual", $cando);
         makeSingleTable($dest, "dbayarbeli", $cando);
+        makeSingleTable($dest, "hbeli", $cando);
     }
     echo "<hr>";
 
@@ -129,7 +134,13 @@ function make_form($name, $dest, $handle, $item) {
         echo "<div class='form-input'>";
         if ($name != "no" && $name != "nogenerate") {
             echo "<label for='$name'>$name: </label><br/>";
-            echo "<input type='$type' name='$name'>";
+            if ($name == "qty" || $name == "hargajual" || $name == "hargabeli") {
+                echo "<input type='$type' name='$name' id='$name'>";
+            } elseif ($name == "total") {
+                echo "<input type='$type' name='$name' id='$name' readonly>";
+            } else {
+                echo "<input type='$type' name='$name'>";
+            }
             $counter += 1;
         }
         echo "</div>";
@@ -142,5 +153,6 @@ function make_form($name, $dest, $handle, $item) {
     echo "<br/><input class='c-text-bold c-bg-secondary' type='submit' name='cancel' value='Cancel'><br/>";
     echo "</form>";
     echo "</div>";
+    echo "<script src='../js/gen_total.js'></script>";
 }
 ?>
