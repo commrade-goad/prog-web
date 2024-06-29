@@ -5,10 +5,10 @@ function render() {
     // echo "<h5>Tanpa keberanian, tak ada kemenangan. Tanpa perjuangan, tak ada happy ending.</h5>";
     echo "<h5>RULES ARE MADE TO BE BROKEN.</h5>";
     echo "<hr>";
-    echo "<form method='post' action='/dashboard/'>";
+    echo "<form method='get' action='/dashboard/'>";
     echo "<span style='margin-right:10px' class='fw-bold'>Action : </span>";
-    echo "<button type='submit' name='tbeli' class='table-button p-2'>Tambah Pembelian</button>";
-    echo "<button type='submit' name='tjual' class='table-button p-2'>Tambah Penjualan</button>";
+    echo "<button type='submit' name='action' class='table-button p-2' value='beli'>Tambah Pembelian</button>";
+    echo "<button type='submit' name='action' class='table-button p-2' value='jual'>Tambah Penjualan</button>";
     echo "</form>";
     echo "<hr>";
     echo "<span style='margin-right:10px' class='fw-bold'>Range : </span>";

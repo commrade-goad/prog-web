@@ -248,3 +248,23 @@ body {
 .spacer {
     margin-right: 20px;
 }
+
+.custom-split {
+    min-width: 50%;
+    /* min-height: 87vh; */
+    min-height: 100vh;
+    background: rgb(33, 37, 41);
+    margin: 5px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    border-radius: 12px;
+}
+
+.search {
+    min-width: 50% !important;
+    background: rgb(33, 37, 41);
+    color: white;
+    border: solid 1px white;
+    border-radius: 6px;
+    padding: 5px !important;
+}

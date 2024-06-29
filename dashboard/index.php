@@ -96,6 +96,9 @@ if (!isset($_SESSION["start"])) {
                         }
                     }
 
+                } elseif (isset($_GET["action"])) {
+                    include "../php-component/action.php";
+                    render_action("hjual");
                 } else {
                     if (isset($_SESSION["displayed"])) {
                         unset($_SESSION["displayed"]);
