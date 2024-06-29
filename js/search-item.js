@@ -1,4 +1,5 @@
 let buy_array = [];
+let available_qty = {};
 
 function cunny() {
     let table_data = [];
@@ -29,6 +30,12 @@ function cunny() {
                 const hargajual = data.data[index].hargajual;
                 const stok = data.data[index].stok;
                 const satuan = data.data[index].satuan;
+
+                // Initialize available_qty if not already set
+                if (!available_qty[kodeitem]) {
+                    available_qty[kodeitem] = stok;
+                }
+
                 table_data.push(data.data[index]);
                 content += `
                     <tr>
@@ -36,7 +43,7 @@ function cunny() {
                     <td> ${kodeitem} </td>
                     <td> ${nama} </td>
                     <td> ${hargajual} </td>
-                    <td> <input type='number' id='buy-qty-${kodeitem}' max='${stok}' min='1' value='1' style='background: rgb(33, 37, 41); border: none; color: white; width: 70px;'> / ${stok}</td>
+                    <td> <input type='number' id='buy-qty-${kodeitem}' max='${available_qty[kodeitem]}' min='1' value='1' style='background: rgb(33, 37, 41); border: none; color: white; width: 70px;'> / ${available_qty[kodeitem]}</td>
                     <td> ${satuan} </td>
                     </tr>
                     `;
@@ -50,18 +57,39 @@ function cunny() {
                 let element = document.getElementById(`add-${current_data.kodeitem}`);
                 if (element != null) {
                     element.addEventListener("click", function() {
-                        let qty = document.getElementById(`buy-qty-${current_data.kodeitem}`);
-                        if (qty != null) {
-                            current_data.qty = qty.value;
+                        let qtyInput = document.getElementById(`buy-qty-${current_data.kodeitem}`);
+                        if (qtyInput != null) {
+                            let qty = parseInt(qtyInput.value);
+
+                            if (available_qty[current_data.kodeitem] <= 0) {
+                                return;
+                            }
+
+                            // Check if item already exists in buy_array
+                            let existingItem = buy_array.find(item => item.kodeitem === current_data.kodeitem);
+
+                            if (existingItem) {
+                                // Update the quantity of the existing item
+                                existingItem.qty = parseInt(existingItem.qty) + qty;
+                            } else {
+                                // Add new item to buy_array
+                                current_data.qty = qty;
+                                buy_array.push(current_data);
+                            }
+
+                            // Update available_qty
+                            available_qty[current_data.kodeitem] -= qty;
+                            updateAvailableQty();
+
+                            // Refresh the cart display
+                            ayonuelnigg(buy_array);
                         }
-                        buy_array.push(current_data);
-                        ayonuelnigg(buy_array);
                     });
                 }
             }
         },
         data: {
-            q: query.replace(/(\r\n|\n|\r)/gm," "),
+            q: query.replace(/(\r\n|\n|\r)/gm, " "),
         },
         error: function(xhr, status, error) {
             console.error('AJAX Error: ' + status + ' - ' + error);
@@ -69,13 +97,25 @@ function cunny() {
     });
 }
 
+function updateAvailableQty() {
+    for (const kodeitem in available_qty) {
+        let inputElement = document.getElementById(`buy-qty-${kodeitem}`);
+        if (inputElement) {
+            inputElement.max = available_qty[kodeitem];
+            let maxLabel = inputElement.nextSibling;
+            if (maxLabel) {
+                maxLabel.nodeValue = ` / ${available_qty[kodeitem]}`;
+            }
+        }
+    }
+}
+
 function ayonuelnigg(data) {
     const co = document.getElementById('co');
-    console.log(data);
     if (data.length <= 0 || data == null) {
         co.innerHTML = `<h4>Tidak ada data.</h4>`;
     } else {
-        let builded =` 
+        let builded = `
         <table class='table table-dark table-striped'>
             <thead>
                 <tr>
@@ -114,20 +154,28 @@ function ayonuelnigg(data) {
                 deleteItem(index);
             });
         });
-    } 
+    }
 }
 
 function deleteItem(index) {
+    const item = buy_array[index];
+    available_qty[item.kodeitem] += parseInt(item.qty);
     buy_array.splice(index, 1);
+    updateAvailableQty();
     ayonuelnigg(buy_array);
 }
 
 ayonuelnigg(buy_array);
 
-$(document).ready(function() {
-    // $('#button-search').click(function() {
-    $('#sitem').on('input', function() {
+$(document).ready(function () {
+    $('#sitem').on('input', function () {
         cunny();
+    });
+});
+
+$(document).ready(function() {
+    $('#checkout-me').on('click', function(){
+        console.log("SUDAH GILA");
     });
 });
 

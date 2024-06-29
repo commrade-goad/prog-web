@@ -21,7 +21,7 @@ function render_action($target) {
     echo "<div class='p-2 custom-split'>";
     echo "<div id='header-co' class='d-flex justify-content-between'>";
     echo "<h4 class='fw-bold p-1 pt-2'>Checkout</h4>";
-    echo "<button>whwh</button>";
+    echo "<button id='checkout-me' class='table-button'>Lanjutkan</button>";
     echo "</div>";
     echo "<hr class='mt-1'>";
     echo "<p>No Nota : <span id='nonota'>$hasil</span></p>";
