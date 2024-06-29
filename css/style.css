@@ -214,6 +214,12 @@ body {
     transition: background, border ease-in-out 0.2s;
 }
 
+.table-button:disabled {
+    color: rgb(33, 37, 41);
+    background: rgb(120, 120 120);
+    transition: background, border ease-in-out 0.2s;
+}
+
 .btn {
     border: none;
     background: none;
@@ -233,7 +239,7 @@ body {
 }
 
 .overview-option {
-    min-width: 200px !important;
+    min-width: 200px;
     background: rgb(33, 37, 41);
     color: white;
     border: none;

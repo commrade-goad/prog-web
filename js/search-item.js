@@ -61,8 +61,10 @@ function cunny() {
                         if (qtyInput != null) {
                             let qty = parseInt(qtyInput.value);
 
-                            if (available_qty[current_data.kodeitem] <= 0) {
-                                return;
+                            if (available_qty[current_data.kodeitem] - qty <= 0) {
+                                document.getElementById(`add-${current_data.kodeitem}`).disabled = true;
+                            } else {
+                                document.getElementById(`add-${current_data.kodeitem}`).disabled = false;
                             }
 
                             // Check if item already exists in buy_array
@@ -83,6 +85,7 @@ function cunny() {
 
                             // Refresh the cart display
                             ayonuelnigg(buy_array);
+                            handleSumbit(buy_array);
                         }
                     });
                 }
@@ -107,6 +110,14 @@ function updateAvailableQty() {
                 maxLabel.nodeValue = ` / ${available_qty[kodeitem]}`;
             }
         }
+    }
+}
+
+function handleSumbit(data) {
+    if (data.length >= 1) {
+       document.getElementById("checkout-me").disabled = false; 
+    } else {
+       document.getElementById("checkout-me").disabled = true; 
     }
 }
 
@@ -151,10 +162,34 @@ function ayonuelnigg(data) {
         deleteButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const index = this.getAttribute('data-index');
+                const id = this.getAttribute('id');
+                const id_only = id.slice(3, id.length);
                 deleteItem(index);
+                document.getElementById(`add-${id_only}`).disabled = false;
+                handleSumbit(buy_array);
             });
         });
     }
+}
+
+function alterdb(data_arr) {
+        $.ajax({
+        url: '/php-component/add-pembelian.php',
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            window.alert("Data Berhasil di tambahkan!");
+            window.location = "/dashboard/";
+        },
+        data: {
+            q: data_arr,
+            no: document.getElementById('nonota').innerText,
+            rek: document.getElementById('rekening').value,
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX Error: ' + status + ' - ' + error);
+        }
+    });
 }
 
 function deleteItem(index) {
@@ -165,6 +200,7 @@ function deleteItem(index) {
     ayonuelnigg(buy_array);
 }
 
+cunny();
 ayonuelnigg(buy_array);
 
 $(document).ready(function () {
@@ -175,7 +211,7 @@ $(document).ready(function () {
 
 $(document).ready(function() {
     $('#checkout-me').on('click', function(){
-        console.log("SUDAH GILA");
+        alterdb(buy_array);
     });
 });
 
