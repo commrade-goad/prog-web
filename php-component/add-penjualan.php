@@ -13,7 +13,6 @@ if (isset($_GET["q"])) {
     $q = $_GET["q"];
     $no = $_GET["no"];
     $rek = $_GET["rek"];
-    $sup = $_GET["sup"];
     $total = 0;
     $db->exec('BEGIN TRANSACTION');
     try {

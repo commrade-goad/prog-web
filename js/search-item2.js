@@ -43,7 +43,7 @@ function cunny() {
                     <td> ${kodeitem} </td>
                     <td> ${nama} </td>
                     <td> ${hargajual} </td>
-                    <td> <input type='number' id='buy-qty-${kodeitem}' max='${available_qty[kodeitem]}' min='1' value='1' style='background: rgb(33, 37, 41); border: none; color: white; width: 70px;'> / ${available_qty[kodeitem]}</td>
+                    <td> <input type='number' id='buy-qty-${kodeitem}' min='1' value='1' style='background: rgb(33, 37, 41); border: none; color: white; width: 70px;'></td>
                     <td> ${satuan} </td>
                     </tr>
                     `;
@@ -155,6 +155,22 @@ function ayonuelnigg(data) {
         <td class='fw-bold'>${sum}</td>
         <td></td>
         </tr>`;
+        const saldo = document.getElementById("rekening");
+        saldo.addEventListener("change", function() {
+            ayonuelnigg(buy_array);
+        });
+        const selectedOption = saldo.options[saldo.selectedIndex];
+        const uangValue = selectedOption.getAttribute('uang');
+        console.log(uangValue);
+        console.log(sum);
+        if (uangValue - sum < 0) {
+            builded += `<tr>
+            <td></td>
+            <td class='fw-bold text-danger'>Melebihi saldo rekening sebanyak </td>
+            <td class='fw-bold text-danger'>${(uangValue - sum) * -1}</td>
+            <td></td>
+            </tr>`;
+        }
         builded += `</tbody></table>`;
         co.innerHTML = builded;
 
@@ -174,10 +190,10 @@ function ayonuelnigg(data) {
 
 function alterdb(data_arr) {
         $.ajax({
-        url: '/php-component/add-penjualan.php',
+        url: '/php-component/add-pembelian.php',
         type: 'GET',
         dataType: 'json',
-        success: function(data) {
+        success: function() {
             window.alert("Data Berhasil di tambahkan!");
             window.location = "/dashboard/";
         },
@@ -185,6 +201,7 @@ function alterdb(data_arr) {
             q: data_arr,
             no: document.getElementById('nonota').innerText,
             rek: document.getElementById('rekening').value,
+            sup: document.getElementById('pemasok').value,
         },
         error: function(xhr, status, error) {
             console.error('AJAX Error: ' + status + ' - ' + error);

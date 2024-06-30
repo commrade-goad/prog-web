@@ -99,7 +99,9 @@ if (!isset($_SESSION["start"])) {
                 } elseif (isset($_GET["action"])) {
                     include "../php-component/action.php";
                     if ($_GET["action"] == "jual") {
-                        render_action("hjual");
+                        render_action_jual("hjual");
+                    } elseif ($_GET["action"] == "beli") {
+                        render_action_beli("hbeli");
                     }
                 } else {
                     if (isset($_SESSION["displayed"])) {
