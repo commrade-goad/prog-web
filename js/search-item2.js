@@ -1,4 +1,5 @@
 let buy_array = [];
+let uang = 0;
 let available_qty = {};
 
 function cunny() {
@@ -118,6 +119,9 @@ function handleSumbit(data) {
     } else {
        document.getElementById("checkout-me").disabled = true; 
     }
+    if (uang < 0) {
+       document.getElementById("checkout-me").disabled = true; 
+    }
 }
 
 function ayonuelnigg(data) {
@@ -160,7 +164,8 @@ function ayonuelnigg(data) {
         });
         const selectedOption = saldo.options[saldo.selectedIndex];
         const uangValue = selectedOption.getAttribute('uang');
-        if (uangValue - sum < 0) {
+        uang = uangValue - sum;
+        if (uang < 0) {
             builded += `<tr>
             <td></td>
             <td class='fw-bold text-danger'>Melebihi saldo rekening sebanyak </td>
