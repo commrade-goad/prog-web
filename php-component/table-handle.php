@@ -41,7 +41,7 @@ class SqlItem {
         return $item;
     }
 
-    function make_form(array $item, string $dest, string $form_name, string $submit_name, bool $disable_filter = false):void {
+    function make_form(array $item, string $dest, string $form_name, string $submit_name, bool $disable_filter = false, string $table_name):void {
         echo "<div class='float-me' id='popup'>";
         echo "<h3>$form_name</h3>";
         echo "<form method='post' action='$dest'>";
@@ -50,13 +50,28 @@ class SqlItem {
             $type = $item[$i]->type;
             $name = $item[$i]->name;
             echo "<div class='form-input'>";
-            if ($disable_filter) {
+            if ($name == "kodepemasok" || $name == "kodeitem") {
+                $value = '';
+                $db = connect_db();
+                $res = $db->query("select count(*) from $table_name");
+                while ($row = $res->fetchArray()) {
+                    $value = $row["count(*)"] + 1;
+                }
                 echo "<label for='$name'>$name: </label><br/>";
-                echo "<input type='$type' name='$name'>";
+                $prefix = "I-";
+                if ($table_name == "pemasok") {
+                    $prefix = "S-";
+                }
+                echo "<input type='$type' name='$name' value='$prefix$value'>";
             } else {
-                if ($name != "no" && $name != "nogenerate") {
+                if ($disable_filter) {
                     echo "<label for='$name'>$name: </label><br/>";
                     echo "<input type='$type' name='$name'>";
+                } else {
+                    if ($name != "no" && $name != "nogenerate") {
+                        echo "<label for='$name'>$name: </label><br/>";
+                        echo "<input type='$type' name='$name'>";
+                    }
                 }
             }
             echo "</div>";
@@ -191,11 +206,11 @@ if (isset($_SESSION["displayed"])) {
         if (isset($_POST["del-$item_tbl"])) {
             $data = new SqlItem();
             $result = $data->gen_object(array($item_key), array($template_item_t[0]), false);
-            $data->make_form($result, $dest, "Remove $item_tbl", $item_rm_handle, true);
+            $data->make_form($result, $dest, "Remove $item_tbl", $item_rm_handle, true, $item_tbl);
         } elseif (isset($_POST["add-$item_tbl"])) {
             $data = new SqlItem();
             $result = $data->gen_object($template_item, $template_item_t, false);
-            $data->make_form($result, $dest, "Add $item_tbl", $item_add_handle);
+            $data->make_form($result, $dest, "Add $item_tbl", $item_add_handle, false, $item_tbl);
         } elseif (isset($_POST["edit-$item_tbl"])) {
             $val = $_POST["edit-$item_tbl"];
             $value_arr = array();
