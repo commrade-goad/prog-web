@@ -20,23 +20,30 @@ if (isset($_GET["q"])) {
         $response['data'] = $q;
         for ($i=0; $i < count($q); $i++) {
             $current = $q[$i];
-            $nojual = $no;
+            $nobeli = $no;
             $kodeitem = $current['kodeitem'];
             $qty = $current['qty'];
-            $hargajual = $current['hargajual'];
+            $hargabeli = $current['hargabeli'];
             $stok = $current['stok'];
-            $str = "insert into djual (nojual, kodeitem, qty, hargajual, stok) values ('$nojual', '$kodeitem', $qty, $hargajual, $stok)";
-            $total += $qty * $hargajual;
+            $str = "insert into dbeli (nobeli, kodeitem, qty, hargabeli, stok) values ('$nobeli', '$kodeitem', $qty, $hargabeli, $stok)";
+            $total += $qty * $hargabeli;
             $db->query($str);
-            $calculate_stok = $stok - $qty;
+            $calculate_stok = $stok + $qty;
             $str = "update item set stok = $calculate_stok where kodeitem = '$kodeitem'";
             $db->query($str);
         }
-        $str = "insert into hjual (nojual, tanggal, total, keterangan, kodepelanggan) values ('$no', date('now'), $total, 'Lunas', '-')";
+
+        $res = $db->query("select count(noref) from hbeli");
+        $noref = 0;
+        while ($row = $res->fetchArray()) {
+            $noref = $row["count(noref)"];
+        }
+
+        $str = "insert into hbeli (nobeli, noref, tanggal, kodepemasok, total, keterangan) values ('$no', '$noref', date('now'), '$sup', $total, 'Lunas')";
         $db->query($str);
-        $str = "insert into dbayarjual (nojual, tanggal, totalbayar, keterangan, koderekening) values ('$no', date('now'), $total, 'Lunas', '$rek')";
+        $str = "insert into dbayarbeli (nobeli, tanggal, totalbayar, keterangan, koderekening) values ('$no', date('now'), $total, 'Lunas', '$rek')";
         $db->query($str);
-        $str = "update rekening set saldo = saldo + $total where koderekening = '$rek'";
+        $str = "update rekening set saldo = saldo - $total where koderekening = '$rek'";
         $db->query($str);
         $db->exec("COMMIT");
 

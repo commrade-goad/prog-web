@@ -27,7 +27,6 @@ function cunny() {
                 const kodeitem = data.data[index].kodeitem;
                 const nama = data.data[index].nama;
                 const hargabeli = data.data[index].hargabeli;
-                const hargajual = data.data[index].hargajual;
                 const stok = data.data[index].stok;
                 const satuan = data.data[index].satuan;
 
@@ -42,7 +41,7 @@ function cunny() {
                     <td> <button id='add-${kodeitem}' class='table-button p-1'><i class='nf nf-fa-plus'></i></button></td>
                     <td> ${kodeitem} </td>
                     <td> ${nama} </td>
-                    <td> ${hargajual} </td>
+                    <td> ${hargabeli} </td>
                     <td> <input type='number' id='buy-qty-${kodeitem}' min='1' value='1' style='background: rgb(33, 37, 41); border: none; color: white; width: 70px;'></td>
                     <td> ${satuan} </td>
                     </tr>
@@ -144,10 +143,10 @@ function ayonuelnigg(data) {
             builded += `<tr>
             <td>${element.nama}</td>
             <td>${element.qty}</td>
-            <td>${element.hargajual}</td>
+            <td>${element.hargabeli}</td>
             <td> <button id='rm-${element.kodeitem}' class='table-button p-1 delete-btn' data-index='${index}'><i class='nf nf-fa-trash'></i></button></td>
             </tr>`;
-            sum += element.qty * element.hargajual;
+            sum += element.qty * element.hargabeli;
         }
         builded += `<tr>
         <td></td>
@@ -161,8 +160,6 @@ function ayonuelnigg(data) {
         });
         const selectedOption = saldo.options[saldo.selectedIndex];
         const uangValue = selectedOption.getAttribute('uang');
-        console.log(uangValue);
-        console.log(sum);
         if (uangValue - sum < 0) {
             builded += `<tr>
             <td></td>
