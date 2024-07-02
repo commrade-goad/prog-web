@@ -109,12 +109,13 @@ if (!isset($_SESSION["start"])) {
                     }
                     include "../php-component/dash.php";
                     render();
+                    echo "<button id='generate-pdf'>Generate PDF</button>";
+                    echo "<script type='module' src='/js/print.js'></script>";
                 }
                 ?>
             </div>
             <script src="/js/jspdf.umd.min.js"></script>
             <script src="/js/html2canvas.min.js"></script>
-            <!-- <script type="module" src="/js/print.js"></script> -->
         </div>
         <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"

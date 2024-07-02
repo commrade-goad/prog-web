@@ -24,12 +24,14 @@ function render() {
     $dest = "/dashboard/";
     $cando = false;
     $_SESSION["location"] = $dest;
+    echo "<div id='table-place'>";
     if (isset($_GET["overview"])) {
         $mode = $_GET["overview"];
         makeSingleTable($dest, "dbayarjual", $cando, $mode);
         makeSingleTable($dest, "hjual", $cando, $mode);
         makeSingleTable($dest, "dbayarbeli", $cando, $mode);
         makeSingleTable($dest, "hbeli", $cando, $mode);
+        makeSingleTable($dest, "item", $cando);
         echo "<hr>";
         if ($mode == "week") {
             $new_t = array("weeks", "total", "count");
@@ -50,11 +52,14 @@ function render() {
             echo "<p>Something no information is better than information.</p>";
         }
         echo "<hr>";
+        echo "</div>";
     } else {
         makeSingleTable($dest, "dbayarjual", $cando);
         makeSingleTable($dest, "hjual", $cando);
         makeSingleTable($dest, "dbayarbeli", $cando);
         makeSingleTable($dest, "hbeli", $cando);
+        makeSingleTable($dest, "item", $cando);
+        echo "</div>";
         echo "<hr>";
     }
 
